@@ -34,28 +34,43 @@ exports.uploadImage = (req, res, next) => {
             return resApi(null, false, "Not an image it must be png or jpg or jpeg image", 400, res);
         }
         try {
-            let width = 100;
-            let height = 100;
+            let width = 1675;
+            let height = 1215;
             let angel = 186;
 
             const imagePath = req.files.image[0].path;
-            const imageName =
-                req.files.image[0].filename.substring(0, req.files.image[0].filename.lastIndexOf(".")) ||
-                req.files.image[0].filename;
-            console.log(imagePath);
-            console.log(imageName);
-            //await resizeImage(imagePath, 'png', width, height).pipe(res);
+            const templatePath = req.files.template[0].path;
+            const imageName = req.files.image[0].filename.substring(0, req.files.image[0].filename.lastIndexOf(".")) || req.files.image[0].filename;
+            /* console.log(imagePath);
+             console.log(imageName);*/
+            console.log(templatePath);
 
+            let kidImageSharped = `teeela/thum_${imageName}.png`;
+
+            //kid small image
             await sharp(imagePath)
+                .rotate(angel,{background: { r: 0, g: 0, b: 0, alpha: 0 }})
+                .flatten({ background: { r: 255, g: 255, b: 255, alpha: 0 } })
                 .resize({
                     height: height,
-                    width: width
+                    width: width,
                 })
-                .rotate(angel)
-                .toFile(`teeela/thum_${imageName}.png`);
+                .withMetadata()
+                .toFile(`${kidImageSharped}`);
+
+            //StartPoint: [2035, 1558]
+            const imageCardPath = `teeela/card_${imageName}.png`;
+            await sharp(templatePath)
+                .composite([{input: kidImageSharped, top: 2035, left: 1558, gravity: 'southeast'}])
+                .sharpen()
+                .withMetadata()
+                .toFile(imageCardPath);
 
 
-            return resApi("success", true, null, 201, res);
+            const result = await uploadImage(imageCardPath, imageName);
+            return res.status(200).json({
+                finalTemplateURL: result.secure_url,
+            });
         } catch (error) {
             if (!error.statusCode) {
                 error.statusCode = 500;
