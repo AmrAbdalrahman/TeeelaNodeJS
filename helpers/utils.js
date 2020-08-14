@@ -23,7 +23,7 @@ function uploadImage(path, imageName) {
     });
 }
 
- function imageFilter(req, file, cb) {
+function imageFilter(req, file, cb) {
     // Accept images only
     if (!file.originalname.match(/\.(jpg|JPG|jpeg|JPEG|png|PNG|gif|GIF)$/)) {
         req.fileValidationError = 'Only image files are allowed!';
@@ -33,4 +33,4 @@ function uploadImage(path, imageName) {
 }
 
 
-module.exports = {resApi, uploadImage,imageFilter};
+module.exports = {resApi, uploadImage, imageFilter};
