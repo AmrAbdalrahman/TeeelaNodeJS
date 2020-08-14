@@ -16,7 +16,8 @@ function uploadImage(path, imageName) {
             {public_id: `teeela/${imageName}`, tags: `teeela`},
             (err, url) => {
                 if (err) return reject(err);
-                fs.unlinkSync(path);
+                //not remove uploaded card locally
+                //fs.unlinkSync(path);
                 return resolve(url);
             }
         );

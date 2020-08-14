@@ -6,10 +6,10 @@ const router = express.Router();
 
 router.post("/create",
     [
-        /*check('imageDetails.startPoint').isArray({min: 2, max: 2}).isNumeric().withMessage('Enter a valid startPoint'),
+        check('imageDetails.startPoint').isArray({min: 2, max: 2}).isNumeric().withMessage('Enter a valid startPoint'),
         check('imageDetails.width').not().isEmpty().isNumeric().withMessage('Enter a valid width number'),
         check('imageDetails.height').not().isEmpty().isNumeric().withMessage('Enter a valid height number'),
-        check('imageDetails.angel').not().isEmpty().isNumeric().withMessage('Enter a valid angel number'),*/
+        check('imageDetails.angel').not().isEmpty().isNumeric().withMessage('Enter a valid angel number'),
     ], validate, UploadController.uploadImage);
 
 module.exports = router;
