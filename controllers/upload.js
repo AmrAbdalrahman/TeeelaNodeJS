@@ -38,7 +38,8 @@ exports.uploadImage = (req, res, next) => {
             const leftEdge = req.body.imageDetails.startPoint[0];
             const topEdge = req.body.imageDetails.startPoint[1];
 
-            /*//console.log(topEdge);
+            //console.log(leftEdge)
+            /*console.log(width);
             let width = 1675;
             let height = 1215;
             let angel = 186;
