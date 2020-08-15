@@ -1,4 +1,4 @@
-#About
+
 - referring to [task repository](https://github.com/payzaat/backend-challenge).
 - this task takes the template, character images, startPoint [left,right],
 width, height and angel then we get the two images merged to one and 
