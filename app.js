@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const helmet = require('helmet');
 const multer = require("multer");
+const compression = require('compression');
 const path = require('path');
 const {imageFilter, resApi} = require("./helpers/utils");
 
@@ -50,6 +51,7 @@ app.use(cors());
 require('./routes/index')(app);
 
 app.use(helmet());
+app.use(compression());
 
 app.use(((error, req, res, next) => {
     console.log(error);
